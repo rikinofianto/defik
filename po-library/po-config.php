@@ -23,7 +23,7 @@ define('PO_DIRECTORY_PATH_LIB', $dir['lib']);
 $db['host']             = "mysql.idhostinger.com";
 $db['sock']             = "";
 $db['port']             = "";
-$db['user']             = " u692386938_defik";
+$db['user']             = "u692386938_defik";
 $db['passwd']           = "defikardiyanto";
 $db['db']               = "u692386938_defik";
 
