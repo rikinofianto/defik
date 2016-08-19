@@ -20,12 +20,12 @@ define('PO_DIRECTORY_PATH_ADM', $dir['adm']);
 define('PO_DIRECTORY_PATH_CON', $dir['con']);
 define('PO_DIRECTORY_PATH_LIB', $dir['lib']);
 
-$db['host']             = "localhost";
+$db['host']             = "mysql.idhostinger.com";
 $db['sock']             = "";
 $db['port']             = "";
-$db['user']             = "root";
-$db['passwd']           = "";
-$db['db']               = "defik";
+$db['user']             = " u692386938_defik";
+$db['passwd']           = "defikardiyanto";
+$db['db']               = "u692386938_defik";
 
 define('DATABASE_HOST', $db['host']);
 define('DATABASE_SOCK', $db['sock']);
