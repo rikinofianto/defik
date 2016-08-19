@@ -88,7 +88,7 @@
         <div class="header_container">
             <div class="header clearfix">
                 <div class="logo">
-                    <h1><a href="<?=$website_url;?>" title="Pressroom"><?=$website_name;?></a></h1>
+                    <h1><a href="<?=$website_url;?>" title="<?=$website_name;?>"><?=$website_name;?></a></h1>
                     <h4><?=$website_subname;?></h4>
                 </div>
                 <div class="placeholder">728 x 90</div>
