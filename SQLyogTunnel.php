@@ -2,7 +2,7 @@
 
 /*
     SQLyog
-    Copyright 2003-2006, Webyog
+    Copyright 2003-2011, Webyog
     http://www.webyog.com    
     
     HTTP Tunneling Page
@@ -21,14 +21,29 @@ function yog_mysql_connect ($host, $port, $username, $password, $db_name="")
     switch (DB_EXTENSION) 
     {
         case "mysql":
-            $ret = mysql_connect ($host.':'.$port, $username, $password);
+            if($port != 0){
+              //TCP-IP
+              $ret = mysql_connect ($host.':'.$port, $username, $password);
+            }
+            else{
+              //UDS. Here 'host' is the socket path
+              $ret = mysql_connect ($host, $username, $password);
+            }
+              
             if (strlen ($db_name)!=0){
                 mysql_select_db("$db_name");
             }
             break;    
         case "mysqli":
             $port=(int)$port;
-            $GLOBALS["___mysqli_ston"] = mysqli_connect($host, $username,  $password,$db_name, $port); 
+            if($port != 0){
+              //TCP-IP
+              $GLOBALS["___mysqli_ston"] = mysqli_connect($host, $username,  $password,$db_name, $port);
+            }
+            else{
+              //UDS. Here 'host' is the socket path
+              $GLOBALS["___mysqli_ston"] = mysqli_connect(null, $username,  $password,$db_name, 0, $host);
+            } 
             $ret=$GLOBALS["___mysqli_ston"];
             break;    
     }
@@ -1549,10 +1564,18 @@ define ( "XML_LIBXML2_TEST_QUERY", 8);
 /* version constant */
 /* You will need to change the version in processquery method too, where it shows: $versionheader = 'TunnelVersion:5.13.1' */
 
-define ( "tunnelversion", '8.05');
+define ( "tunnelversion", '8.8');
 define ( "tunnelversionstring", 'TunnelVersion:' );
 define ( "phpversionerror", 'PHP_VERSION_ERROR' );
 define ( "phpmoduleerror", 'PHP_MODULE_NOT_INSTALLED' );
+
+/* we stop all error reporting as we check for all sort of errors */
+WriteLog ( "" );
+if ( defined("DEBUG") ) 
+    error_reporting ( E_ALL );
+else
+    error_reporting ( 0 );
+set_time_limit ( 0 );
 
 if (!defined("MYSQLI_TYPE_BIT")) {
     define ( "MYSQLI_TYPE_BIT", 16);
@@ -1607,16 +1630,6 @@ $base           = 0;
 $query          = NULL;
 $libxml2_test_query  = NULL;
 $libxml2_is_base64 = 0;
-
-
-/* we stop all error reporting as we check for all sort of errors */
-WriteLog ( "" );
-if ( defined("DEBUG") ) 
-    error_reporting ( E_ALL );
-else
-    error_reporting ( 0 );
-
-set_time_limit ( 0 );
 
 
 /* we check if all the external libraries support i.e. expat and mysql in our case is built in or not */
